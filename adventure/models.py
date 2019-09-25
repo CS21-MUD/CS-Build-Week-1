@@ -14,7 +14,20 @@ class Room(models.Model):
     e_to = models.IntegerField(default=0)
     w_to = models.IntegerField(default=0)
 
-    def connectRooms(self, destinationRoom, direction):
+    # def connect_rooms(self, connecting_room, direction):
+    #     """
+    #     Connect two rooms in the given n/s/e/w direction
+    #     """
+    #     reverse_dirs = {"n": "s", "s": "n", "e": "w", "w": "e"}
+    #     reverse_dir = reverse_dirs[direction]
+    #     setattr(self, f"{direction}_to", connecting_room.id)
+    #     setattr(connecting_room, f"{reverse_dir}_to", self.id)
+    #     self.save()
+
+    def save_room(self):
+        self.save()
+
+    def connect_rooms(self, destinationRoom, direction):
         destinationRoomID = destinationRoom.id
         try:
             destinationRoom = Room.objects.get(id=destinationRoomID)
