@@ -31,12 +31,6 @@ def generate_rooms(num_rooms, current_amount_of_rooms=0, prev_room=None):
             current_amount_of_rooms += 1
             generate_rooms(num_rooms, current_amount_of_rooms, prev_room)
 
-# class World:
-#     def __init__(self):
-#         self.grid = None
-#         self.width = 0
-#         self.height = 0
-
 # class Room:
 #     def __init__(self, id, name, description, x, y):
 #         self.id = id
