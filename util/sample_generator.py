@@ -11,21 +11,31 @@ from adventure.models import Room
 import random
 
 rooms = [Room(title="Room A", description="Testing Room A"), Room(title="Room B", description="Testing Room B"),
-         Room(title="Room C", description="Testing Room C")]
+         Room(title="Room C", description="Testing Room C"), Room(title="Room D", description="Testing Room D")]
+
+directions = ['n', 's', 'w', 'e']
 
 
-class World:
-    def __init__(self):
-        self.grid = None
-        self.width = 0
-        self.height = 0
+def generate_rooms(num_rooms, current_amount_of_rooms=0, prev_room=None):
+    if current_amount_of_rooms >= num_rooms:
+        return
+    else:
+        while current_amount_of_rooms < num_rooms:
+            new_room = random.choice(rooms)
 
-    def generate_rooms(self, num_rooms, current_amount_of_rooms=0):
-        if current_amount_of_rooms >= num_rooms:
-            return
-        else:
-            while current_amount_of_rooms < num_rooms:
-                new_room = Room
+            if prev_room is not None:
+                new_room.connect_rooms(prev_room, random.choice(directions))
+            else:
+                new_room.save_room()
+            prev_room = new_room
+            current_amount_of_rooms += 1
+            generate_rooms(num_rooms, current_amount_of_rooms, prev_room)
+
+# class World:
+#     def __init__(self):
+#         self.grid = None
+#         self.width = 0
+#         self.height = 0
 
 # class Room:
 #     def __init__(self, id, name, description, x, y):
@@ -44,14 +54,14 @@ class World:
 #             return f"({self.x}, {self.y}) -> ({self.e_to.x}, {self.e_to.y})"
 #         return f"({self.x}, {self.y})"
 #
-#     def connect_rooms(self, connecting_room, direction):
-#         """
-#         Connect two rooms in the given n/s/e/w direction
-#         """
-#         reverse_dirs = {"n": "s", "s": "n", "e": "w", "w": "e"}
-#         reverse_dir = reverse_dirs[direction]
-#         setattr(self, f"{direction}_to", connecting_room)
-#         setattr(connecting_room, f"{reverse_dir}_to", self)
+    # def connect_rooms(self, connecting_room, direction):
+    #     """
+    #     Connect two rooms in the given n/s/e/w direction
+    #     """
+    #     reverse_dirs = {"n": "s", "s": "n", "e": "w", "w": "e"}
+    #     reverse_dir = reverse_dirs[direction]
+    #     setattr(self, f"{direction}_to", connecting_room)
+    #     setattr(connecting_room, f"{reverse_dir}_to", self)
 #
 #     def get_room_in_direction(self, direction):
 #         """
