@@ -31,7 +31,7 @@ def initialize(request):
 def rooms(request):
     user = request.user
     player = user.player
-    allRooms = [{'title': room.title, 'description': room.description, 'n_to': room.n_to, 's_to': room.s_to, 'e_to': room.e_to, 'w_to': room.w_to, 'players': room.playerNames(player.id)} for room in Room.objects.all()]
+    allRooms = [{'id':room.id, 'title': room.title, 'description': room.description, 'n_to': room.n_to, 's_to': room.s_to, 'e_to': room.e_to, 'w_to': room.w_to, 'players': room.playerNames(player.id)} for room in Room.objects.all()]
     return JsonResponse(allRooms, safe=False)
 
 
